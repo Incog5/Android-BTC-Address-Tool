@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.CIMS.BitcoinAddress_Donate;
+package com.CIMS.BitcoinAddress;
 
 public final class R {
     public static final class attr {
