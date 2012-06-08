@@ -2,11 +2,12 @@
 <classpath>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="lib" path="bitcoinj-0.4-android.jar"/>
 	<classpathentry exported="true" kind="lib" path="junit-4.8.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="slf4j-api-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="slf4j-simple-1.6.1.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/dperry/Dropbox/code/Android/!libs and demos/zxing/core.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

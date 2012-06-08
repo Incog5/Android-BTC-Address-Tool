@@ -47,38 +47,81 @@
         android:text="Private Key (Hex)"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    
+    <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    >
+    
     <EditText
         android:id="@+id/PrivKeyHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text=" " />
-
+
+    <ImageView
+        android:id="@+id/imgPKHexQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_gravity="right|center_vertical" />
+</LinearLayout>
     <TextView
         android:id="@+id/lblPKW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Private Key (WIF)"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    >
     <EditText
         android:id="@+id/PrivKeyWIF"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" " android:gravity="center_vertical|center_horizontal"/>
-
+        android:layout_weight="1"
+        android:text=" "
+        android:gravity="center_vertical|center_horizontal"/>
+    
+        <ImageView
+        android:id="@+id/imgPKWIFQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_gravity="right|center_vertical" />
+</LinearLayout>
     <TextView
         android:id="@+id/lblAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Address"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    >
     <EditText
         android:id="@+id/Address"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" " android:gravity="center_vertical|center_horizontal"/>
+        android:layout_weight="1"
+        android:text=" "
+        android:gravity="center_vertical|center_horizontal"/>
+
+    <ImageView
+        android:id="@+id/imgAddressQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_gravity="right|center_vertical" />
+    
+</LinearLayout>
 
 </LinearLayout>
 </ScrollView>
