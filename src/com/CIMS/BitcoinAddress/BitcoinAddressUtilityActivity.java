@@ -45,21 +45,21 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							sb.append(String.format("%02X ", b));
 						}
 						
-						TextView PrivKeyHex = (TextView) findViewById(R.id.PrivKeyHex);
+						EditText PrivKeyHex = (EditText) findViewById(R.id.PrivKeyHex);
 						PrivKeyHex.setText(sb.toString());
 						
 						// Make sure we're set to Bitcoin prodNet
 						NetworkParameters params = NetworkParameters.prodNet();
 						
 						// Generate keypair from privkey and display WIF formatted privkey
-						TextView PrivKeyWIF = (TextView) findViewById(R.id.PrivKeyWIF);
+						EditText PrivKeyWIF = (EditText) findViewById(R.id.PrivKeyWIF);
 						ECKey key;
 						BigInteger privkey = new BigInteger(1,digest);
 						key = new ECKey(privkey);
 						PrivKeyWIF.setText(key.getPrivateKeyEncoded(params).toString());
 						
 						// Generate and display address
-						TextView addr = (TextView) findViewById(R.id.Address);
+						EditText addr = (EditText) findViewById(R.id.Address);
 						addr.setText(key.toAddress(params).toString());
 						
 						
