@@ -15,22 +15,24 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int layout=0x7f020001;
     }
     public static final class id {
-        public static final int Address=0x7f06000c;
-        public static final int PrivKeyHex=0x7f060006;
-        public static final int PrivKeyWIF=0x7f060009;
-        public static final int btnGenerate=0x7f060004;
-        public static final int btnLabel1=0x7f060001;
-        public static final int imgAddressQR=0x7f06000d;
-        public static final int imgPKHexQR=0x7f060007;
-        public static final int imgPKWIFQR=0x7f06000a;
-        public static final int lblAddress=0x7f06000b;
-        public static final int lblError=0x7f060003;
-        public static final int lblPKH=0x7f060005;
-        public static final int lblPKW=0x7f060008;
-        public static final int scroll=0x7f060000;
-        public static final int txtPassphrase=0x7f060002;
+        public static final int Address=0x7f06000d;
+        public static final int MainFrame=0x7f060000;
+        public static final int PrivKeyHex=0x7f060007;
+        public static final int PrivKeyWIF=0x7f06000a;
+        public static final int btnGenerate=0x7f060005;
+        public static final int btnLabel1=0x7f060002;
+        public static final int imgAddressQR=0x7f06000e;
+        public static final int imgPKHexQR=0x7f060008;
+        public static final int imgPKWIFQR=0x7f06000b;
+        public static final int lblAddress=0x7f06000c;
+        public static final int lblError=0x7f060004;
+        public static final int lblPKH=0x7f060006;
+        public static final int lblPKW=0x7f060009;
+        public static final int scroll=0x7f060001;
+        public static final int txtPassphrase=0x7f060003;
     }
     public static final class layout {
         public static final int main=0x7f030000;

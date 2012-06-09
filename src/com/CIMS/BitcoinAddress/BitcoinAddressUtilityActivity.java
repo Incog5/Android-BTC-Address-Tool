@@ -11,16 +11,22 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Bitmap.Config;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.CIMS.BitcoinAddress.R;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.zxing.common.BitMatrix;
@@ -35,13 +41,176 @@ public class BitcoinAddressUtilityActivity extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        // Set listener for the one and only button
+        // Set listener for Address QR button
+        ImageView imgAddress = (ImageView) findViewById(R.id.imgAddressQR);
+        imgAddress.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				final FrameLayout mainFrame = (FrameLayout)findViewById(R.id.MainFrame);
+				final ImageView overlay = new ImageView(BitcoinAddressUtilityActivity.this);
+				
+				Display display = getWindowManager().getDefaultDisplay();
+				final Point point = new Point();
+			    try {
+			        display.getSize(point);
+			    } catch (java.lang.NoSuchMethodError ignore) { // Older device
+			        point.x = display.getWidth();
+			        point.y = display.getHeight();
+			    }
+				int d = 0;
+				if (point.x > point.y) {
+					d = point.x;
+				} else {
+					d = point.y;
+				}
+				d = d / 2;
+				
+				// Address QR code
+				Charset charset = Charset.forName("ISO-8859-1");
+				CharsetEncoder encoder = charset.newEncoder();
+				byte[] b = null;
+				try {
+					EditText Addr = (EditText) findViewById(R.id.Address);
+					ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(Addr.getText().toString()));
+					b = bbuf.array();
+				} catch (CharacterCodingException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				String data = null;
+				try {
+					data = new String(b, "ISO-8859-1");
+				} catch (UnsupportedEncodingException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				BitMatrix matrix = null;
+				int h = d;
+				int w = d;
+				com.google.zxing.Writer writer = new QRCodeWriter();
+				try {
+					matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h);
+				} catch (com.google.zxing.WriterException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				Bitmap mBitmap = Bitmap.createBitmap(h, w, Config.ARGB_8888);
+				for (int i=0;i<w;i++) {
+					for (int j=0;j<h;j++) {
+						mBitmap.setPixel(i, j, matrix.get(i, j)?Color.BLACK:Color.WHITE);
+					}
+				}
+				
+				// imgAddressQR.setImageBitmap(mBitmap);
+				
+				overlay.setImageBitmap(mBitmap);
+				overlay.setBackgroundResource(R.drawable.layout);
+				mainFrame.addView(overlay);
+				
+				overlay.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						mainFrame.removeView(overlay);
+					}
+				});
+				
+			}
+		});
+        
+        // Set listener for PKWIF QR button
+        ImageView imgPKWIFQR = (ImageView) findViewById(R.id.imgPKWIFQR);
+        imgPKWIFQR.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				final FrameLayout mainFrame = (FrameLayout)findViewById(R.id.MainFrame);
+				final ImageView overlay = new ImageView(BitcoinAddressUtilityActivity.this);
+				
+				Display display = getWindowManager().getDefaultDisplay();
+				final Point point = new Point();
+			    try {
+			        display.getSize(point);
+			    } catch (java.lang.NoSuchMethodError ignore) { // Older device
+			        point.x = display.getWidth();
+			        point.y = display.getHeight();
+			    }
+				int d = 0;
+				if (point.x > point.y) {
+					d = point.x;
+				} else {
+					d = point.y;
+				}
+				d = d / 2;
+				
+				// Address QR code
+				Charset charset = Charset.forName("ISO-8859-1");
+				CharsetEncoder encoder = charset.newEncoder();
+				byte[] b = null;
+				try {
+					EditText pkWIF = (EditText) findViewById(R.id.PrivKeyWIF);
+					ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(pkWIF.getText().toString()));
+					b = bbuf.array();
+				} catch (CharacterCodingException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				String data = null;
+				try {
+					data = new String(b, "ISO-8859-1");
+				} catch (UnsupportedEncodingException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				BitMatrix matrix = null;
+				int h = d;
+				int w = d;
+				com.google.zxing.Writer writer = new QRCodeWriter();
+				try {
+					matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h);
+				} catch (com.google.zxing.WriterException e) {
+					TextView lblError1 = (TextView) findViewById(R.id.lblError);
+					lblError1.setText(e.toString());
+				}
+				
+				Bitmap mBitmap = Bitmap.createBitmap(h, w, Config.ARGB_8888);
+				for (int i=0;i<w;i++) {
+					for (int j=0;j<h;j++) {
+						mBitmap.setPixel(i, j, matrix.get(i, j)?Color.BLACK:Color.WHITE);
+					}
+				}
+				
+				// imgAddressQR.setImageBitmap(mBitmap);
+				
+				overlay.setImageBitmap(mBitmap);
+				overlay.setBackgroundResource(R.drawable.layout);
+				mainFrame.addView(overlay);
+				
+				overlay.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						mainFrame.removeView(overlay);
+					}
+				});
+				
+			}
+		});
+        
+        
+        // Set listener for the generate button
         Button btnGenerate = (Button) findViewById(R.id.btnGenerate);
         btnGenerate.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				
 				EditText txtPassphrase = (EditText) findViewById(R.id.txtPassphrase);
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(txtPassphrase.getWindowToken(), 0);
 				String passphrase = txtPassphrase.getText().toString();
 				if (passphrase.length() > 0) {
 					try {
@@ -84,6 +253,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							b = bbuf.array();
 						} catch (CharacterCodingException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						String data = null;
@@ -91,6 +261,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							data = new String(b, "ISO-8859-1");
 						} catch (UnsupportedEncodingException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						BitMatrix matrix = null;
@@ -101,6 +272,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h);
 						} catch (com.google.zxing.WriterException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						Bitmap mBitmap = Bitmap.createBitmap(h, w, Config.ARGB_8888);
@@ -112,7 +284,6 @@ public class BitcoinAddressUtilityActivity extends Activity {
 						
 						imgAddressQR.setImageBitmap(mBitmap);
 						
-						
 						// Private Key (WIF) QR code
 						ImageView imgPKWIFQR = (ImageView) findViewById(R.id.imgPKWIFQR);
 						b = null;
@@ -121,6 +292,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							b = bbuf.array();
 						} catch (CharacterCodingException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						data = null;
@@ -128,6 +300,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							data = new String(b, "ISO-8859-1");
 						} catch (UnsupportedEncodingException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						matrix = null;
@@ -138,6 +311,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 							matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h);
 						} catch (com.google.zxing.WriterException e) {
 							TextView lblError1 = (TextView) findViewById(R.id.lblError);
+							lblError1.setText(e.toString());
 						}
 						
 						mBitmap = Bitmap.createBitmap(h, w, Config.ARGB_8888);
