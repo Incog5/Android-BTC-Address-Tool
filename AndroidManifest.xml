@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.CIMS.BitcoinAddress"
-    android:versionCode="4"
-    android:versionName="1.03" >
+    android:versionCode="5"
+    android:versionName="1.04" >
 
     <uses-sdk android:minSdkVersion="7" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -20,4 +21,19 @@
         </activity>
     </application>
 
+	 <activity android:name="com.google.zxing.client.android.CaptureActivity"
+	   android:screenOrientation="landscape"
+	   android:configChanges="orientation|keyboardHidden"
+	   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+	   android:windowSoftInputMode="stateAlwaysHidden">
+	   <intent-filter>
+	      <action android:name="android.intent.action.MAIN"/>
+	      <category android:name="android.intent.category.DEFAULT"/>
+	   </intent-filter>
+	   <intent-filter>
+	      <action android:name="com.google.zxing.client.android.SCAN"/>
+	      <category android:name="android.intent.category.DEFAULT"/>
+	    </intent-filter>
+	</activity>
+    
 </manifest>

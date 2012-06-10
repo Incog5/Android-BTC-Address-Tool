@@ -23,15 +23,31 @@
         android:text="Passphrase"
         android:gravity="center_vertical|center_horizontal"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+        <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    >
 
     <EditText
         android:id="@+id/txtPassphrase"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10" android:gravity="center_horizontal">
-
+        android:ems="10" android:gravity="center_horizontal"
+        android:layout_weight="1">
+		
         <requestFocus />
     </EditText>
+
+    <ImageButton
+        android:id="@+id/btnBarcode"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:src="@drawable/barcode" />
+    
+    </LinearLayout>
 
     <TextView
         android:id="@+id/lblError"

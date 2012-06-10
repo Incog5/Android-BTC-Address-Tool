@@ -11,11 +11,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -23,6 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +49,46 @@ public class BitcoinAddressUtilityActivity extends Activity {
     	// Initialize View
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        // Set listener for scanner button
+        ImageButton btnScan = (ImageButton) findViewById(R.id.btnBarcode);
+        btnScan.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				
+				
+			      //Check for Barcode scanner, if not found put up an alert that allows user to install it.
+			    PackageManager pm = getPackageManager();
+			    try {
+			        ApplicationInfo appInfo = pm.getApplicationInfo("com.google.zxing.client.android", 0);
+			        Intent intent = new Intent(
+			        "com.google.zxing.client.android.SCAN");
+                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");//for Qr code, its "QR_CODE_MODE" instead of "PRODUCT_MODE"
+                    intent.putExtra("SAVE_HISTORY", false);//this stops saving ur barcode in barcode scanner app's history
+                    startActivityForResult(intent, 0);
+			    } catch (NameNotFoundException e) {
+			        // TODO Auto-generated catch block
+			        e.printStackTrace();
+			         new AlertDialog.Builder(BitcoinAddressUtilityActivity.this)
+			            .setTitle("WARNING:")
+			            .setMessage("You don't have Barcode Scanner installed. Please install it.")
+			             .setCancelable(false)
+			            .setNeutralButton("Install it now", new DialogInterface.OnClickListener() {
+			            public void onClick(DialogInterface dialog, int whichButton) {         
+			                          Uri uri = Uri.parse("market://search?q=pname:com.google.zxing.client.android");
+			                          startActivity(new Intent(Intent.ACTION_VIEW, uri));
+			                    }
+			            })
+			            .show();
+
+			    }
+				
+				
+			}
+			
+			
+		});
         
         // Set listener for Address QR button
         ImageView imgAddress = (ImageView) findViewById(R.id.imgAddressQR);
@@ -361,4 +410,21 @@ public class BitcoinAddressUtilityActivity extends Activity {
 		});
     }
     
+
+
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	   if (requestCode == 0) {
+	      if (resultCode == RESULT_OK) {
+	         String contents = intent.getStringExtra("SCAN_RESULT");
+	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+	         // Handle successful scan
+	         EditText passphrase = (EditText) findViewById(R.id.txtPassphrase);
+	         passphrase.setText(contents);
+	      } else if (resultCode == RESULT_CANCELED) {
+	         // Handle cancel
+	      }
+	   }
+	}
+
 }
