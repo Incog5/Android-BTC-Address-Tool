@@ -98,6 +98,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 				
 				final FrameLayout mainFrame = (FrameLayout)findViewById(R.id.MainFrame);
 				final ImageView overlay = new ImageView(BitcoinAddressUtilityActivity.this);
+				final TextView txtDismiss = new TextView(BitcoinAddressUtilityActivity.this);
 				
 				Display display = getWindowManager().getDefaultDisplay();
 				final Point point = new Point();
@@ -159,11 +160,15 @@ public class BitcoinAddressUtilityActivity extends Activity {
 				overlay.setImageBitmap(mBitmap);
 				overlay.setBackgroundResource(R.drawable.layout);
 				mainFrame.addView(overlay);
+				txtDismiss.setText("Tap image to dismiss");
+				mainFrame.addView(txtDismiss);
+				
 				
 				overlay.setOnClickListener(new View.OnClickListener() {
 					
 					public void onClick(View v) {
 						mainFrame.removeView(overlay);
+						mainFrame.removeView(txtDismiss);
 					}
 				});
 				
@@ -178,6 +183,7 @@ public class BitcoinAddressUtilityActivity extends Activity {
 				
 				final FrameLayout mainFrame = (FrameLayout)findViewById(R.id.MainFrame);
 				final ImageView overlay = new ImageView(BitcoinAddressUtilityActivity.this);
+				final TextView txtDismiss = new TextView(BitcoinAddressUtilityActivity.this);
 				
 				Display display = getWindowManager().getDefaultDisplay();
 				final Point point = new Point();
@@ -239,11 +245,14 @@ public class BitcoinAddressUtilityActivity extends Activity {
 				overlay.setImageBitmap(mBitmap);
 				overlay.setBackgroundResource(R.drawable.layout);
 				mainFrame.addView(overlay);
+				txtDismiss.setText("Tap image to dismiss");
+				mainFrame.addView(txtDismiss);
 				
 				overlay.setOnClickListener(new View.OnClickListener() {
 					
 					public void onClick(View v) {
 						mainFrame.removeView(overlay);
+						mainFrame.removeView(txtDismiss);
 					}
 				});
 				
@@ -426,5 +435,9 @@ public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	      }
 	   }
 	}
+
+@Override
+public void onBackPressed() {
+}
 
 }
